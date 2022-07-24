@@ -11,7 +11,7 @@ public final class TransferOrder extends Order {
     private String fromAccountId;
     private String toAccountId;
     private double amount;
-    private boolean isSuccess;
+    private boolean isSuccess=true;
     private Date time = new Date();
 
     public TransferOrder(String fromAccountId, String toAccountId, double amount) {
