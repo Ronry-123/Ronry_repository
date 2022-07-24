@@ -7,6 +7,8 @@ public class AccountManager {
     public static int currentAccountIndex = 0;
     public static Account currentAccount = null;
 
+
+    //开户
     public static Account openAccount(String username, String password, String checkPassword) {
         if (!password.equals(checkPassword)) {
             System.out.println("两次输入的密码不一致");
@@ -21,6 +23,7 @@ public class AccountManager {
         return account;
     }
 
+    //账户扩容
     private static void reSize(){
         Account[] newAccounts = new Account[accounts.length * 2];
         for (int i = 0; i < accounts.length; i++) {
@@ -29,23 +32,19 @@ public class AccountManager {
         accounts = newAccounts;
     }
 
-    /**
-     * 随机生成6位数字的账号
-     * @return
-     */
+    //随机获取账号Id
     private static String getRandomAccountId() {
         Random random = new Random();
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 6; i++) {
+        StringBuilder id = new StringBuilder("888");
+        for (int i = 0; i < 7; i++) {
             int num = random.nextInt(10);
-            sb.append(num);
+            id.append(num);
         }
-        return sb.toString();
+        return id.toString();
     }
 
-
+    //登陆账户
     public static boolean loginAccount(String accountId, String password) {
-        // TODO 登录逻辑
         for (int i = 0; i < currentAccountIndex; i++) {
             Account account = accounts[i];
             if(account == null) {
@@ -59,9 +58,8 @@ public class AccountManager {
         return false;
     }
 
-    // 登录之后才能调用
+    // 提现，登录之后才能调用
     public static double withdraw(double amount) {
-        // TODO 提现逻辑
         if(currentAccount == null){
             System.out.println("请先登录");
             Main.printMainMenu();
@@ -83,52 +81,53 @@ public class AccountManager {
     // 存钱
     public static double deposit(double amount) {
         if(currentAccount == null){
-            System.out.println("请先登录");
+            System.out.println("请先登录.");
             Main.printMainMenu();
             return -1;
         }
         if (amount <= 0) {
-            System.out.println("存入金额必须大于0");
+            System.out.println("存入金额必须大于0.");
             return -1;
         }
         currentAccount.balance += amount;
-        // TODO 存钱逻辑
-        return amount;
+        return currentAccount.balance;
     }
 
+    //获取余额
     public static double getBalance() {
         if(currentAccount == null){
-            System.out.println("请先登录");
+            System.out.println("请先登录.");
             Main.printMainMenu();
             return -1;
         }
-        // TODO 获取余额逻辑
-        return 0;
+        double balance = currentAccount.balance;
+        return balance;
     }
 
+    //转账
     public static boolean transfer(String toAccountId, String toUsername, double amount) {
         if(currentAccount == null){
-            System.out.println("请先登录");
+            System.out.println("请先登录.");
             Main.printMainMenu();
             return false;
         }
-        // 不能向自己转账
+        // TODO 不能向自己转账
 
         Account toAccount = getAccountByIdAndUsername(toAccountId, toUsername);
         if (toAccount == null){
-            System.out.println("账户不存在");
+            System.out.println("账户不存在.");
             return false;
         }
         if (amount <= 0) {
-            System.out.println("转账金额必须大于0");
+            System.out.println("转账金额必须大于0.");
             return false;
         }
-        if (amount >= currentAccount.balance) {
-            System.out.println("余额不足");
+        if (amount > currentAccount.balance) {
+            System.out.println("余额不足.");
             return false;
         }
         currentAccount.balance -= amount;
-        //其他操作 比如记录转账记录
+        // TODO 其他操作 比如记录转账记录
         toAccount.balance += amount;
         return true;
     }

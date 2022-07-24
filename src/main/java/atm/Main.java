@@ -20,10 +20,10 @@ public class Main {
         System.out.println("3.退出");
         Scanner in = new Scanner(System.in);
         // 假定用户输入都是符合预期的
-        int choice = in.nextInt();
+        String choice = in.next();
 
         switch (choice){
-            case 1:
+            case "1":
                 System.out.println("=== 开设账户 ===");
                 System.out.println("请输入 姓名: ");
                 String userName = in.next();
@@ -40,7 +40,7 @@ public class Main {
                 }
                 printMainMenu();
                 break;
-            case 2:
+            case "2":
                 System.out.println("=== 登录账户 ===");
                 System.out.println("请输入 账号: ");
                 String accountId = in.next();
@@ -55,7 +55,7 @@ public class Main {
                     printMainMenu();
                 }
                 break;
-            case 3:
+            case "3":
                 System.out.println("=== 退出 ===");
                 break;
             default:
@@ -73,27 +73,34 @@ public class Main {
         System.out.println("4.查询余额");
         System.out.println("5.查询存取款记录");
         System.out.println("6.查询转账记录");
-        System.out.println("7.退出");
+        System.out.println("7.更改密码");
+        System.out.println("8.退出");
         Scanner in = new Scanner(System.in);
-        int choice = in.nextInt();
+        String choice = in.next();
         switch (choice){
-            case 1:
+            case "1":
                 System.out.println("=== 提现 ===");
                 System.out.println("请输入 提现金额: ");
                 double amount = in.nextDouble();
                 double balance = AccountManager.withdraw(amount);
-                System.out.println("取现成功，金额为: " + amount + ", 余额为: " + balance);
+                if (balance != -1){
+                    System.out.println("提现成功，金额为: " + amount + ", 余额为: " + balance);
+                }
                 printUserMenu();
                 break;
-            case 2:
+            case "2":
                 System.out.println("=== 存钱 ===");
                 System.out.println("请输入 存钱金额: ");
                 amount = in.nextDouble();
                 balance = AccountManager.deposit(amount);
-                System.out.println("您的余额为: " + balance);
+                if(balance == -1){
+                    System.out.println("您的余额为: 0");
+                }else{
+                    System.out.println("您的余额为: " + balance);
+                }
                 printUserMenu();
                 break;
-            case 3:
+            case "3":
                 System.out.println("=== 转账 ===");
                 System.out.println("请输入 转账账号: ");
                 String toAccountId = in.next();
@@ -109,13 +116,15 @@ public class Main {
                 }
                 printUserMenu();
                 break;
-            case 4:
+            case "4"://TODO
                 System.out.println("=== 查询余额 ===");
                 balance = AccountManager.getBalance();
                 System.out.println("您的余额为: " + balance);
                 printUserMenu();
                 break;
-            case 5:
+
+            //TODO case5,case6,case7
+            case "8":
                 System.out.println("=== 退出 ===");
                 printMainMenu();
                 break;
