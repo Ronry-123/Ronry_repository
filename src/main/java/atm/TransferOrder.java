@@ -1,6 +1,10 @@
 package atm;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Date;
+import java.util.Random;
 
 public final class TransferOrder extends Order {
     private String orderId;
@@ -9,10 +13,9 @@ public final class TransferOrder extends Order {
     private double amount;
     private boolean isSuccess;
     private Date time = new Date();
-    // private TransferOrderType type;
-
 
     public TransferOrder(String fromAccountId, String toAccountId, double amount) {
+        this.orderId = getRandomOrderId(fromAccountId+toAccountId);
         this.fromAccountId = fromAccountId;
         this.toAccountId = toAccountId;
         this.amount = amount;
@@ -20,25 +23,25 @@ public final class TransferOrder extends Order {
 
     @Override
     public String getOrderId() {
+
         return orderId;
     }
 
-    public String getFromAccountId() {
-        return fromAccountId;
+    private String getRandomOrderId(String prefix) {
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder(prefix);
+        for (int i = 0; i < 6; i++) {
+            int num = random.nextInt(10);
+            sb.append(num);
+        }
+        return sb.toString();
     }
 
-    public String getToAccountId() {
-        return toAccountId;
+    @Contract(pure = true)
+    public @NotNull String toString() {
+        return "CashOrder [orderId:" + orderId + ", fromId:" + fromAccountId + ", toId:" + toAccountId + ", time=" + time
+                +  ", amount=" + amount + ", isSuccess=" + isSuccess +"]";
     }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public Date getTime() {
-        return time;
-    }
-
     @Override
     public boolean getIsSuccess() {
         return isSuccess;

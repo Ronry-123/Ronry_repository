@@ -67,36 +67,38 @@ public class Main {
 
     private static void printUserMenu() {
         System.out.println("=== 用户菜单 ===");
-        System.out.println("1.提现");
-        System.out.println("2.存钱");
+        System.out.println("1.取款");
+        System.out.println("2.存款");
         System.out.println("3.转账");
-        System.out.println("4.查询余额");
-        System.out.println("5.查询存取款记录");
-        System.out.println("6.查询转账记录");
-        System.out.println("7.更改密码");
+        System.out.println("4.更改密码");
+        System.out.println("5.查询余额");
+        System.out.println("6.查询存取款记录");
+        System.out.println("7.查询转账记录");
         System.out.println("8.退出");
         Scanner in = new Scanner(System.in);
         String choice = in.next();
         switch (choice){
             case "1":
-                System.out.println("=== 提现 ===");
-                System.out.println("请输入 提现金额: ");
+                System.out.println("=== 取款 ===");
+                System.out.println("请输入 取款金额: ");
                 double amount = in.nextDouble();
                 double balance = AccountManager.withdraw(amount);
                 if (balance != -1){
-                    System.out.println("提现成功，金额为: " + amount + ", 余额为: " + balance);
+                    System.out.println("取款成功，金额为: " + amount + ", 您的余额为: " + balance);
+                }else {
+                    System.out.println("取款失败.");
                 }
                 printUserMenu();
                 break;
             case "2":
-                System.out.println("=== 存钱 ===");
-                System.out.println("请输入 存钱金额: ");
+                System.out.println("=== 存款 ===");
+                System.out.println("请输入 存款金额: ");
                 amount = in.nextDouble();
                 balance = AccountManager.deposit(amount);
                 if(balance == -1){
-                    System.out.println("您的余额为: 0");
+                    System.out.println("存款失败.");
                 }else{
-                    System.out.println("您的余额为: " + balance);
+                    System.out.println("存款成功，您的余额为: " + balance);
                 }
                 printUserMenu();
                 break;
@@ -116,16 +118,40 @@ public class Main {
                 }
                 printUserMenu();
                 break;
-            case "4"://TODO
+            case "4":
+                System.out.println("=== 修改密码 ===");
+                System.out.println("请输入 新的密码：");
+                String newPassword = in.next();
+                System.out.println("请再此输入 新的密码：");
+                String newCheckPassword = in.next();
+                boolean bool = AccountManager.changePassword(newPassword, newCheckPassword);
+                if(bool){
+                    System.out.println("更改密码成功!请重新登录您的账户.");
+                    printMainMenu();
+                }else {
+                    System.out.println("更改密码失败!两次密码输入不一致.");
+                    printUserMenu();
+                }
+                break;
+            case "5":
                 System.out.println("=== 查询余额 ===");
                 balance = AccountManager.getBalance();
                 System.out.println("您的余额为: " + balance);
                 printUserMenu();
                 break;
-
-            //TODO case5,case6,case7
+            case "6":
+                System.out.println("=== 查询存取款记录 ===");
+                AccountManager.printCashOrders();
+                printUserMenu();
+                break;
+            case "7":
+                System.out.println("=== 查询转账记录 ===");
+                AccountManager.printTransferOrders();
+                printUserMenu();
+                break;
             case "8":
                 System.out.println("=== 退出 ===");
+                AccountManager.logout();
                 printMainMenu();
                 break;
             default:

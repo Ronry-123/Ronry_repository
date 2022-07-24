@@ -32,30 +32,10 @@ public final class CashOrder extends Order {
         return orderId;
     }
 
-    public String getAccountId() {
-        return accountId;
-    }
-
-    public Date getTime() {
-        return time;
-    }
-
-    public boolean isSuccess() {
-        return isSuccess;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public CashEnum getType() {
-        return type;
-    }
-
     @Override
     public String toString() {
-        return "CashOrder [orderId=" + orderId + ", accountId=" + accountId + ", time=" + time + ", isSuccess="
-                + isSuccess + ", amount=" + amount + ", type=" + type + "]";
+        return "CashOrder [orderId=" + orderId + ", accountId=" + accountId + ", time=" + time +  ", amount=" +
+                amount + ", type=" + type + ", isSuccess=" + isSuccess +"]";
     }
 
     @Override

@@ -19,9 +19,22 @@ public class Account {
         cashOrders[cashOrderIndex] = cashOrder;
         cashOrderIndex++;
     }
-
+    public int getCashOrderIndex(){
+        return cashOrderIndex;
+    }
     public CashOrder[] getCashOrders() {
         return cashOrders;
     }
+    public void addTransferOrder(TransferOrder transferOrder){
+        transferOrders[transferOrderIndex] = transferOrder;
+        transferOrderIndex++;
+    }
+    public int getTransferOrderIndex() {
+        return transferOrderIndex;
+    }
+    public TransferOrder[] getTransferOrders() {
+        return transferOrders;
+    }
+
 
 }
