@@ -116,7 +116,7 @@ public class Main {
                 }
                 printUserMenu();
                 break;
-            case "4"://TODO
+            case "4":
                 System.out.println("=== 查询余额 ===");
                 balance = AccountManager.getBalance();
                 System.out.println("您的余额为: " + balance);

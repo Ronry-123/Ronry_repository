@@ -11,7 +11,7 @@ public class AccountManager {
     //开户
     public static Account openAccount(String username, String password, String checkPassword) {
         if (!password.equals(checkPassword)) {
-            System.out.println("两次输入的密码不一致");
+            System.out.println("两次输入的密码不一致.");
             return null;
         }
         Account account = new Account();
@@ -61,16 +61,16 @@ public class AccountManager {
     // 提现，登录之后才能调用
     public static double withdraw(double amount) {
         if(currentAccount == null){
-            System.out.println("请先登录");
+            System.out.println("请先登录.");
             Main.printMainMenu();
             return -1;
         }
         if (amount <= 0) {
-            System.out.println("提现金额必须大于0");
+            System.out.println("提现金额必须大于0.");
             return -1;
         }
         if (amount >= currentAccount.balance) {
-            System.out.println("余额不足");
+            System.out.println("余额不足.");
             return -1;
         }
         currentAccount.balance -= amount;
@@ -111,11 +111,14 @@ public class AccountManager {
             Main.printMainMenu();
             return false;
         }
-        // TODO 不能向自己转账
+        if(currentAccount.accountId == toAccountId  && currentAccount.username == toUsername){
+            System.out.println("不能向自己转账.");
+            return false;
+        }
 
         Account toAccount = getAccountByIdAndUsername(toAccountId, toUsername);
         if (toAccount == null){
-            System.out.println("账户不存在.");
+            System.out.println("转账账户不存在.");
             return false;
         }
         if (amount <= 0) {
