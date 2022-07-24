@@ -15,7 +15,6 @@ public final class CashOrder extends Order {
         this.amount = amount;
         this.orderId = getRandomOrderId(accountId);
         this.isSuccess = isSuccess;
-        //super.time = new Date();
     }
     private String getRandomOrderId(String prefix) {
         Random random = new Random();

@@ -175,7 +175,6 @@ public class AccountManager {
         }
     }
 
-
     //获取账户(通过Id和Name)
     private static Account getAccountByIdAndUsername(String accountId, String username) {
         for (int i = 0; i < currentAccountIndex; i++) {

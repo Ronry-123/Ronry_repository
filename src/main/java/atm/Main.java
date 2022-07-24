@@ -19,9 +19,7 @@ public class Main {
         System.out.println("2.登录账户");
         System.out.println("3.退出");
         Scanner in = new Scanner(System.in);
-        // 假定用户输入都是符合预期的
         String choice = in.next();
-
         switch (choice){
             case "1":
                 System.out.println("=== 开设账户 ===");
