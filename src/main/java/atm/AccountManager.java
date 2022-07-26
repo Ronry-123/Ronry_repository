@@ -1,12 +1,27 @@
 package atm;
 
-import com.sun.xml.internal.bind.v2.TODO;
-
 import java.util.Random;
-
 
 public class AccountManager {
     public static Account[] accounts = new Account[100];
+    //也可以用List
+
+    /*
+    public static final List<Account> accounts = new ArrayList<>();
+    申明: List<Integer> list = new ArrayList<>()
+         Integer[] arr = new Integer[10]
+    取值: list.get(index)
+         arr[index]
+    赋值: list.add(value)  存最末尾
+         list.add(index, value)  存指定位置
+         arr[index] = value
+    判断是否包含: list.contains(value)
+         arr：for循环判断
+
+    集合类其他类型申明: List<Long> list = new ArrayList<>()
+                    List<String> list = new ArrayList<>()
+                    Map<key, value> map = new HashMap<>()
+     */
     public static int currentAccountIndex = 0;
     public static Account currentAccount = null;
 
