@@ -17,6 +17,10 @@ public class AccountManager {
             System.out.println("两次输入的密码不一致.");
             return null;
         }
+        if (username == null || username.length() == 0){
+            System.out.println("用户不能输入空字符串.");
+            return null;
+        }
         Account account = new Account();
         account.username = username;
         account.password = password;
@@ -132,6 +136,12 @@ public class AccountManager {
 
     //更改密码
     public static boolean changePassword(String newPsw, String newCheckPsw){
+        if(newPsw == null || newCheckPsw == null){
+            return false;
+        }
+        if(newPsw.length() == 0 || newCheckPsw.length() == 0){
+            return false;
+        }
         if(newPsw.equals(newCheckPsw)){
             currentAccount.password = newPsw;
             accounts[currentAccountIndex] = currentAccount;
