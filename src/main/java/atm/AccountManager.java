@@ -1,28 +1,11 @@
 package atm;
 
-import java.util.Random;
+import java.util.*;
 
 public class AccountManager {
-    public static Account[] accounts = new Account[100];
-    //也可以用List
-
-    /*
-    public static final List<Account> accounts = new ArrayList<>();
-    申明: List<Integer> list = new ArrayList<>()
-         Integer[] arr = new Integer[10]
-    取值: list.get(index)
-         arr[index]
-    赋值: list.add(value)  存最末尾
-         list.add(index, value)  存指定位置
-         arr[index] = value
-    判断是否包含: list.contains(value)
-         arr：for循环判断
-
-    集合类其他类型申明: List<Long> list = new ArrayList<>()
-                    List<String> list = new ArrayList<>()
-                    Map<key, value> map = new HashMap<>()
-     */
-    public static int currentAccountIndex = 0;
+    //public static Account[] accounts = new Account[100];
+    //也可以用List, Set, Map等集合类来更改accounts类型
+    public static Map<String, Account> accountMap = new HashMap<>();
     public static Account currentAccount = null;
 
 
@@ -40,18 +23,8 @@ public class AccountManager {
         account.username = username;
         account.password = password;
         account.accountId = getRandomAccountId();
-        accounts[currentAccountIndex] = account;
-        currentAccountIndex ++;
+        accountMap.put(account.accountId, account);
         return account;
-    }
-
-    //账户扩容
-    private static void reSize(){
-        Account[] newAccounts = new Account[accounts.length * 2];
-        for (int i = 0; i < accounts.length; i++) {
-            newAccounts[i] = accounts[i];
-        }
-        accounts = newAccounts;
     }
 
     //随机获取账号Id
@@ -67,17 +40,17 @@ public class AccountManager {
 
     //登陆账户
     public static boolean loginAccount(String accountId, String password) {
-        for (int i = 0; i < currentAccountIndex; i++) {
-            Account account = accounts[i];
-            if(account == null) {
-                continue;
-            }
-            if (account.accountId.equals(accountId) && account.password.equals(password)) {
-                currentAccount = account;
-                return true;
-            }
+        Account account = accountMap.get(accountId);
+        if (account == null){
+            System.out.println("账号不存在");
+            return false;
         }
-        return false;
+        if (!account.password.equals(password)){
+            System.out.println("密码错误");
+            return false;
+        }
+        currentAccount = account;  //老师代码中未执行这一步
+        return true;
     }
 
     // 取款
@@ -159,7 +132,7 @@ public class AccountManager {
         }
         if(newPsw.equals(newCheckPsw)){
             currentAccount.password = newPsw;
-            accounts[currentAccountIndex] = currentAccount;
+            accountMap.put(currentAccount.accountId, currentAccount);
             return true;
         }
         return false;
@@ -202,16 +175,16 @@ public class AccountManager {
 
     //获取账户(通过Id和Name)
     private static Account getAccountByIdAndUsername(String accountId, String username) {
-        for (int i = 0; i < currentAccountIndex; i++) {
-            Account account = accounts[i];
-            if(account == null) {
-                continue;
-            }
-            if (account.accountId.equals(accountId) && account.username.equals(username)) {
-                return account;
-            }
+        Account account = accountMap.get(accountId);
+        if (account == null){
+            System.out.println("转账账户不存在.");
+            return null;
         }
-        return null;
+        if (!account.username.equals(username)){
+            System.out.println("用户名错误.");
+            return null;
+        }
+        return account;
     }
 
     public static void logout() {
