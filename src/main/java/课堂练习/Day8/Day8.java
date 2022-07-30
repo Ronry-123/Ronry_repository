@@ -1,4 +1,4 @@
-package 课堂练习;
+package 课堂练习.Day8;
 
 import java.util.*;
 import java.util.stream.Collectors;
