@@ -38,7 +38,6 @@
             </exclusions>
         </dependency>
 
-
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
@@ -48,7 +47,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
-
         <dependency>
         <groupId>org.apache.ibatis</groupId>
         <artifactId>ibatis-core</artifactId>
